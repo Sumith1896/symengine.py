@@ -3,6 +3,23 @@ from os import getenv, path
 import subprocess
 import sys
 
+# check for the right Cython version
+cython_version = '0.19.1'
+from distutils.version import LooseVersion
+try:
+    import cython
+    if cython.__version__ < LooseVersion(cython_version):
+        raise ImportError
+except ImportError:
+    print("Please install the Cython package with a version >= %s" % cython_version)
+    sys.exit(-1)
+
+# check for the right Python version.
+PY3 = sys.version_info[0] > 2
+if sys.version_info[:2] < (2, 6):
+    print("SymEngine requires Python 2.6 or newer. Python %d.%d detected" % sys.version_info[:2])
+    sys.exit(-1)
+
 # use setuptools by default as per the official advice at:
 # packaging.python.org/en/latest/current.html#packaging-tool-recommendations
 use_setuptools = True
