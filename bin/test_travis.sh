@@ -6,7 +6,7 @@ set -e
 set -x
 
 # Build and install python wrappers
-python setup.py install --symengine-dir=$our_install_dir
+pip install . --install-option="--symengine-dir=$our_install_dir"
 
 # Test python wrappers
 if [[ "${WITH_SAGE}" != "yes" ]]; then
